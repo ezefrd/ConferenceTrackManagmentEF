@@ -1,11 +1,12 @@
 import java.time.LocalTime;
 import java.util.Objects;
 
-public class TimeMinutesDimension implements TimeDimension{
-    private Integer minutes;
+public class TimeMinutesDimension extends AbstractTimeDimension{
 
     public TimeMinutesDimension(String timeCode){
-        this.minutes = Integer.parseInt(timeCode.replace("min", ""));
+        super(
+                Integer.parseInt(timeCode.replace("min", ""))
+        );
     }
 
     @Override public boolean equals(Object o) {

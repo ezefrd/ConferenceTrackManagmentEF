@@ -1,11 +1,10 @@
 import java.time.LocalTime;
 import java.util.Objects;
 
-public class TimeLightning implements TimeDimension{
-    private Integer minutes;
+public class TimeLightning extends AbstractTimeDimension{
 
     public TimeLightning(String timeCode){
-        this.minutes = 5;
+        super(5);
     }
 
     @Override public boolean equals(Object o) {
@@ -24,4 +23,5 @@ public class TimeLightning implements TimeDimension{
     @Override public LocalTime addToTime(TimeReference time) {
         return time.getTimeReference().plusMinutes(this.minutes);
     }
+
 }

@@ -9,12 +9,12 @@ public class TimeDimensionCode implements TimeDimensionCreator {
     }
 
     @Override
-    public TimeDimension itsTimeDimensionReturnInstanceOrDefault(String timeCode, Class validDimension, TimeDimension defaultDimension)
+    public AbstractTimeDimension itsTimeDimensionReturnInstanceOrDefault(String timeCode, Class validDimension, AbstractTimeDimension defaultDimension)
             throws NoSuchMethodException, IllegalAccessException,
             InvocationTargetException, InstantiationException {
         if(this.timeCode.endsWith(timeCode)){
             Constructor constructor = validDimension.getDeclaredConstructor(String.class);
-            return (TimeDimension) constructor.newInstance(this.timeCode);
+            return (AbstractTimeDimension) constructor.newInstance(this.timeCode);
         }
 
         return defaultDimension;

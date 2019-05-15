@@ -34,4 +34,28 @@ public class Talks {
         return this.talks.stream().map(track -> track.render(time)).collect(
                 Collectors.joining("\n"));
     }
+
+    public Talks extractTalksFor(TimeMinutesDimension maxTimeToFit) {
+        TimeMinutesDimension accTime = maxTimeToFit;
+        Talks talksForContainer = new Talks();
+        Talks notUsedTalks;
+
+        while(accTime.itsNotZero()){
+            notUsedTalks = new Talks();
+
+            for(Talk talk : this.talks){
+                talk.addIfFitsSameToOr(accTime, talksForContainer, notUsedTalks);
+            }
+
+            if(this.equals(notUsedTalks)){
+                Talk edgeTalk = talks.get(0);
+                notUsedTalks.talks.remove(edgeTalk);
+                talks.get(0).addIfFitsToOr(accTime,talksForContainer, notUsedTalks);
+            }
+
+            this.talks = (ArrayList<Talk>) notUsedTalks.talks.clone();
+        }
+
+        return talksForContainer;
+    }
 }

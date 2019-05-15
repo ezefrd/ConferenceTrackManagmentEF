@@ -11,8 +11,8 @@ public class TimeDimensionFactory {
         timeDimensions.put("lightning", TimeLightning.class);
     }
 
-    public TimeDimension createFromCode(TimeDimensionCreator timeDimensionCreator) {
-        TimeDimension timeDimension = new UnknownTimeDimension();
+    public AbstractTimeDimension createFromCode(TimeDimensionCreator timeDimensionCreator) {
+        AbstractTimeDimension timeDimension = new UnknownTimeDimension();
         for(String key : timeDimensions.keySet()){
             try {
                 timeDimension = timeDimensionCreator.itsTimeDimensionReturnInstanceOrDefault(key, timeDimensions.get(key), timeDimension);

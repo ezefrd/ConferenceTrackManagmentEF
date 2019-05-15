@@ -1,12 +1,11 @@
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 public class Talk {
     private String title;
-    private TimeDimension timeDimension;
+    private AbstractTimeDimension timeDimension;
 
-    public Talk(String title, TimeDimension timeDimension) {
+    public Talk(String title, AbstractTimeDimension timeDimension) {
         this.title = title;
         this.timeDimension = timeDimension;
     }
@@ -29,5 +28,23 @@ public class Talk {
         String talk = time.getTimeReference().format(DateTimeFormatter.ofPattern("h:mm a")) + " " + this.title + "\n";
         time.setTimeReference(timeDimension.addToTime(time));
         return talk;
+    }
+
+    public void addIfFitsToOr(TimeMinutesDimension accTime, Talks talksForContainer, Talks notUsedTalks) {
+        if(this.timeDimension.fitsTo(accTime)){
+            accTime.reduce(this.timeDimension);
+            talksForContainer.add(this);
+        }else{
+            notUsedTalks.add(this);
+        }
+    }
+
+    public void addIfFitsSameToOr(TimeMinutesDimension accTime, Talks talksForContainer, Talks notUsedTalks) {
+        if(this.timeDimension.fitsSame(accTime)){
+            accTime.reduce(this.timeDimension);
+            talksForContainer.add(this);
+        }else{
+            notUsedTalks.add(this);
+        }
     }
 }
