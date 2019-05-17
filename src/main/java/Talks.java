@@ -1,31 +1,12 @@
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Objects;
+import java.util.Collections;
 import java.util.stream.Collectors;
 
-public class Talks {
-
-    private ArrayList<Talk> talks;
+public class Talks extends AbstractTalks{
 
     public Talks(){
-        talks = new ArrayList<Talk>();
-    }
-
-    public void add(Talk talk) {
-        this.talks.add(talk);
-    }
-
-    @Override public boolean equals(Object o) {
-        if (this == o)
-            return true;
-        if (o == null || getClass() != o.getClass())
-            return false;
-        Talks talks1 = (Talks) o;
-        return Objects.equals(talks, talks1.talks);
-    }
-
-    @Override public int hashCode() {
-        return Objects.hash(talks);
+        super();
     }
 
     public String render(LocalTime startingTime) {
@@ -35,12 +16,15 @@ public class Talks {
                 Collectors.joining("\n"));
     }
 
+    @Override
     public Talks extractTalksFor(TimeMinutesDimension maxTimeToFit) {
         TimeMinutesDimension accTime = maxTimeToFit;
         Talks talksForContainer = new Talks();
         Talks notUsedTalks;
 
-        while(accTime.itsNotZero()){
+        Collections.sort(this.talks, new TalksDecresingTimeSorter());
+
+        while(accTime.itsNotZero() && anyTalkFitsInto(accTime)){
             notUsedTalks = new Talks();
 
             for(Talk talk : this.talks){
@@ -57,5 +41,17 @@ public class Talks {
         }
 
         return talksForContainer;
+    }
+
+    private boolean anyTalkFitsInto(TimeMinutesDimension accTime) {
+        boolean anyTalksFits = false;
+
+        for(SchedulableTalk talk : talks){
+            if(talk.fitsInto(accTime)){
+                anyTalksFits = true;
+            }
+        }
+
+        return anyTalksFits;
     }
 }

@@ -10,21 +10,20 @@ public class MorningSessionTest {
         //setup:
         Talks morningTalks = new Talks();
         morningTalks.add(new Talk("Talk 1", new TimeLightning("lightning")));
-        morningTalks.add(new Talk("Talk 2", new TimeMinutesDimension("min30")));
+        morningTalks.add(new Talk("Talk 2", new TimeMinutesDimension("30min")));
 
-        morningTalks.add(new Talk("Talk 3", new TimeMinutesDimension("min40")));
-        morningTalks.add(new Talk("Talk 4", new TimeMinutesDimension("min60")));
+        morningTalks.add(new Talk("Talk 3", new TimeMinutesDimension("40min")));
+        morningTalks.add(new Talk("Talk 4", new TimeMinutesDimension("60min")));
 
         MorningSession morningSession = new MorningSession(
                 LocalTime.of(10,0),
-                LocalTime.of(13,0),
+                LocalTime.of(11,0),
                 morningTalks
         );
         //when:
         String seassonRendered = morningSession.render();
         //then:
-        Assert.assertEquals("10:00 AM Talk 1\n" + "\n" + "10:05 AM Talk 2\n"
-                + "\n" + "10:35 AM Talk 3\n" + "\n" + "11:15 AM Talk 4\n", seassonRendered);
+        Assert.assertEquals("10:00 AM Talk 4 60min\n", seassonRendered);
     }
 
     @Test
@@ -32,10 +31,10 @@ public class MorningSessionTest {
         //setup:
         Talks morningTalks = new Talks();
         morningTalks.add(new Talk("Talk 1", new TimeLightning("lightning")));
-        morningTalks.add(new Talk("Talk 2", new TimeMinutesDimension("min30")));
+        morningTalks.add(new Talk("Talk 2", new TimeMinutesDimension("30min")));
 
-        morningTalks.add(new Talk("Talk 3", new TimeMinutesDimension("min40")));
-        morningTalks.add(new Talk("Talk 4", new TimeMinutesDimension("min60")));
+        morningTalks.add(new Talk("Talk 3", new TimeMinutesDimension("40min")));
+        morningTalks.add(new Talk("Talk 4", new TimeMinutesDimension("60min")));
 
         MorningSession morningSession = new MorningSession(
                 morningTalks
@@ -43,8 +42,9 @@ public class MorningSessionTest {
         //when:
         String seassonRendered = morningSession.render();
         //then:
-        Assert.assertEquals("9:00 AM Talk 1\n" + "\n" + "9:05 AM Talk 2\n"
-                + "\n" + "9:35 AM Talk 3\n" + "\n" + "10:15 AM Talk 4\n", seassonRendered);
+        Assert.assertEquals("9:00 AM Talk 4 60min\n" + "\n"
+                + "10:00 AM Talk 3 40min\n" + "\n" + "10:40 AM Talk 2 30min\n"
+                + "\n" + "11:10 AM Talk 1 5min\n", seassonRendered);
     }
 
 }

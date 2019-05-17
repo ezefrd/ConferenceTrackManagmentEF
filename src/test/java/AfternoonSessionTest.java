@@ -17,14 +17,13 @@ public class AfternoonSessionTest {
 
         AfternoonSession afternoonSession = new AfternoonSession(
                 LocalTime.of(14,0),
-                LocalTime.of(18,0),
+                LocalTime.of(15,0),
                 afternoonTalks
         );
         //when:
         String seassonRendered = afternoonSession.render();
         //then:
-        Assert.assertEquals("2:00 PM Talk 1\n" + "\n" + "2:05 PM Talk 2\n"
-                + "\n" + "2:35 PM Talk 3\n" + "\n" + "3:15 PM Talk 4\n", seassonRendered);
+        Assert.assertEquals("2:00 PM Talk 4 60min\n", seassonRendered);
     }
 
     @Test
@@ -43,8 +42,9 @@ public class AfternoonSessionTest {
         //when:
         String seassonRendered = afternoonSession.render();
         //then:
-        Assert.assertEquals("1:00 PM Talk 1\n" + "\n" + "1:05 PM Talk 2\n"
-                + "\n" + "1:35 PM Talk 3\n" + "\n" + "2:15 PM Talk 4\n", seassonRendered);
+        Assert.assertEquals("1:00 PM Talk 4 60min\n" + "\n"
+                + "2:00 PM Talk 3 40min\n" + "\n" + "2:40 PM Talk 2 30min\n"
+                + "\n" + "3:10 PM Talk 1 5min\n", seassonRendered);
     }
 
 }

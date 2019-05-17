@@ -6,7 +6,7 @@ public abstract class AbstractTimeDimension implements TimeDimension{
     }
 
     public boolean fitsTo(AbstractTimeDimension accTime) {
-        return this.minutes < accTime.minutes;
+        return this.minutes <= accTime.minutes;
     }
 
     public boolean fitsSame(AbstractTimeDimension accTime) {
@@ -19,5 +19,9 @@ public abstract class AbstractTimeDimension implements TimeDimension{
 
     public boolean itsNotZero() {
         return this.minutes != 0;
+    }
+
+    public String render() {
+        return this.minutes + "min";
     }
 }

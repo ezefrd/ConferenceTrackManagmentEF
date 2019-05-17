@@ -25,7 +25,81 @@ public class ConferenceTest {
         //when:
         String conferenceAsString = conference.render();
         //then:
-        Assert.assertEquals(conferenceAsString, getExpectedConferenceRender());
+        Assert.assertEquals(getExpectedConferenceRender(), conferenceAsString);
+    }
+
+    @Test
+    public void test_create_conference_structure_adding_the_talks_and_render_the_result(){
+        //setup:
+        Talks completeSetOfTalks = readTalksFromTxt();
+        ArrayList<Track> trackList = new ArrayList<Track>();
+
+        Track track1 = new Track(
+                "Track1",
+                new MorningSession(
+                        LocalTime.of(9,0),
+                        LocalTime.of(12,0),
+                        completeSetOfTalks
+                ),
+                new AfternoonSession(
+                        LocalTime.of(13,0),
+                        LocalTime.of(17,0),
+                        completeSetOfTalks
+                )
+        );
+
+        Track track2 = new Track(
+                "Track2",
+                new MorningSession(
+                        LocalTime.of(9,0),
+                        LocalTime.of(12,0),
+                        completeSetOfTalks
+                ),
+                new AfternoonSession(
+                        LocalTime.of(13,0),
+                        LocalTime.of(17,0),
+                        completeSetOfTalks
+                )
+        );
+
+        trackList.add(track1);
+        trackList.add(track2);
+
+        Tracks tracks = new Tracks(trackList);
+        Conference conference = new Conference(tracks);
+
+        //when:
+        String conferenceStructure = conference.render();
+
+        //then:
+        Assert.assertEquals(getEpectedConferenceStructure(), conferenceStructure);
+
+    }
+
+    private String getEpectedConferenceStructure() {
+        return "Track1:\n"
+                + "9:00 AM Writing Fast Tests Against Enterprise Rails  60min\n"
+                + "\n" + "10:00 AM Communicating Over Distance  60min\n" + "\n"
+                + "11:00 AM Rails Magic  60min\n" + "12:00 PM Lunch\n"
+                + "1:00 PM Ruby on Rails: Why We Should Move On  60min\n" + "\n"
+                + "2:00 PM Ruby on Rails Legacy App Maintenance  60min\n" + "\n"
+                + "3:00 PM Overdoing it in Python  45min\n" + "\n"
+                + "3:45 PM Ruby Errors from Mismatched Gem Versions  45min\n"
+                + "\n" + "4:30 PM Lua for the Masses  30min\n"
+                + "05:00 PM Networking Event\n" + "\n" + "Track2:\n"
+                + "9:00 AM Common Ruby Errors  45min\n" + "\n"
+                + "9:45 AM Accounting-Driven Development  45min\n" + "\n"
+                + "10:30 AM Pair Programming vs Noise  45min\n" + "\n"
+                + "11:15 AM Clojure Ate Scala (on my project)  45min\n"
+                + "12:00 PM Lunch\n" + "1:00 PM Woah  30min\n" + "\n"
+                + "1:30 PM Sit Down and Write  30min\n" + "\n"
+                + "2:00 PM Programming in the Boondocks of Seattle  30min\n"
+                + "\n"
+                + "2:30 PM Ruby vs. Clojure for Back-End Development  30min\n"
+                + "\n" + "3:00 PM A World Without HackerNews  30min\n" + "\n"
+                + "3:30 PM User Interface CSS in Rails Apps  30min\n" + "\n"
+                + "4:00 PM Rails for Python Developers  5min\n"
+                + "05:00 PM Networking Event\n";
     }
 
     private Conference makeMockedConference() {
@@ -94,16 +168,18 @@ public class ConferenceTest {
     }
 
     private String getExpectedConferenceRender() {
-        return "Track1:\n" + "9:00 AM Talk 1\n" + "\n" + "9:10 AM Talk 2\n"
-                + "\n" + "9:40 AM Talk 3\n" + "\n" + "10:20 AM Talk 4\n"
-                + "12:00 PM Lunch\n" + "1:00 PM Talk 1\n" + "\n"
-                + "1:05 PM Talk 2\n" + "\n" + "1:35 PM Talk 3\n" + "\n"
-                + "2:15 PM Talk 4\n" + "05:00 PM Networking Event\n" + "\n"
-                + "Track2:\n" + "9:00 AM Talk 1\n" + "\n" + "9:10 AM Talk 2\n"
-                + "\n" + "9:40 AM Talk 3\n" + "\n" + "10:20 AM Talk 4\n"
-                + "12:00 PM Lunch\n" + "1:00 PM Talk 1\n" + "\n"
-                + "1:10 PM Talk 2\n" + "\n" + "1:40 PM Talk 3\n" + "\n"
-                + "2:20 PM Talk 4\n" + "05:00 PM Networking Event\n";
+        return "Track1:\n" + "9:00 AM Talk 4 60min\n" + "\n"
+                + "10:00 AM Talk 3 40min\n" + "\n" + "10:40 AM Talk 2 30min\n"
+                + "\n" + "11:10 AM Talk 1 10min\n" + "12:00 PM Lunch\n"
+                + "1:00 PM Talk 4 60min\n" + "\n" + "2:00 PM Talk 3 40min\n"
+                + "\n" + "2:40 PM Talk 2 30min\n" + "\n"
+                + "3:10 PM Talk 1 5min\n" + "05:00 PM Networking Event\n" + "\n"
+                + "Track2:\n" + "9:00 AM Talk 4 60min\n" + "\n"
+                + "10:00 AM Talk 3 40min\n" + "\n" + "10:40 AM Talk 2 30min\n"
+                + "\n" + "11:10 AM Talk 1 10min\n" + "12:00 PM Lunch\n"
+                + "1:00 PM Talk 3 40min\n" + "\n" + "1:40 PM Talk 2 30min\n"
+                + "\n" + "2:10 PM Talk 1 10min\n" + "\n"
+                + "2:20 PM Talk 4 5min\n" + "05:00 PM Networking Event\n";
     }
 
     private Talks readTalksFromTxt(){

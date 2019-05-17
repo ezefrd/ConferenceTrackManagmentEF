@@ -1,7 +1,7 @@
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
-public class Talk {
+public class Talk implements SchedulableTalk{
     private String title;
     private AbstractTimeDimension timeDimension;
 
@@ -24,12 +24,24 @@ public class Talk {
         return Objects.hash(title, timeDimension);
     }
 
+    public boolean isShorterThan(Talk talk2) {
+        return this.timeDimension.fitsTo(talk2.timeDimension);
+    }
+
+
     public String render(TimeReference time) {
-        String talk = time.getTimeReference().format(DateTimeFormatter.ofPattern("h:mm a")) + " " + this.title + "\n";
+        String talk = time
+                .getTimeReference()
+                .format(DateTimeFormatter.ofPattern("h:mm a"))
+                + " "
+                + this.title
+                + " " + this.timeDimension.render()
+                + "\n";
         time.setTimeReference(timeDimension.addToTime(time));
         return talk;
     }
 
+    @Override
     public void addIfFitsToOr(TimeMinutesDimension accTime, Talks talksForContainer, Talks notUsedTalks) {
         if(this.timeDimension.fitsTo(accTime)){
             accTime.reduce(this.timeDimension);
@@ -39,6 +51,7 @@ public class Talk {
         }
     }
 
+    @Override
     public void addIfFitsSameToOr(TimeMinutesDimension accTime, Talks talksForContainer, Talks notUsedTalks) {
         if(this.timeDimension.fitsSame(accTime)){
             accTime.reduce(this.timeDimension);
@@ -46,5 +59,10 @@ public class Talk {
         }else{
             notUsedTalks.add(this);
         }
+    }
+
+    @Override
+    public boolean fitsInto(TimeMinutesDimension accTime) {
+        return this.timeDimension.fitsTo(accTime);
     }
 }

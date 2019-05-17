@@ -46,15 +46,15 @@ public class TimeDimensionFactoryTest {
 
     //@Smell: following tests don't say too much.. should them?
     @Test
-    public void test_create_from_code_unknown_fails_illegal_accesse_exception()
+    public void test_create_from_code_min_fails_illegal_accesse_exception()
             throws InvocationTargetException, NoSuchMethodException,
             InstantiationException, IllegalAccessException {
         //given:
-        TimeDimensionCode timeDimensionCode = Mockito.mock(TimeDimensionCode.class);
+        TimeDimensionCreator timeDimensionCode = Mockito.mock(TimeDimensionCreator.class);
 
         Mockito.when(
                 timeDimensionCode.itsTimeDimensionReturnInstanceOrDefault(
-                        "unknown",
+                        "min",
                         TimeMinutesDimension.class,
                         new UnknownTimeDimension())
         ).thenThrow(IllegalAccessException.class);
@@ -65,15 +65,15 @@ public class TimeDimensionFactoryTest {
     }
 
     @Test
-    public void test_create_from_code_unknown_fails_invocation_target_exception()
+    public void test_create_from_code_min_fails_invocation_target_exception()
             throws InvocationTargetException, NoSuchMethodException,
             InstantiationException, IllegalAccessException {
         //given:
-        TimeDimensionCode timeDimensionCode = Mockito.mock(TimeDimensionCode.class);
+        TimeDimensionCreator timeDimensionCode = Mockito.mock(TimeDimensionCreator.class);
 
         Mockito.when(
                 timeDimensionCode.itsTimeDimensionReturnInstanceOrDefault(
-                        "unknown",
+                        "min",
                         TimeMinutesDimension.class,
                         new UnknownTimeDimension())
         ).thenThrow(InvocationTargetException.class);
@@ -84,18 +84,37 @@ public class TimeDimensionFactoryTest {
     }
 
     @Test
-    public void test_create_from_code_unknown_fails_instantiation_exception()
+    public void test_create_from_code_min_fails_instantiation_exception()
             throws InvocationTargetException, NoSuchMethodException,
             InstantiationException, IllegalAccessException {
         //given:
-        TimeDimensionCode timeDimensionCode = Mockito.mock(TimeDimensionCode.class);
+        TimeDimensionCreator timeDimensionCode = Mockito.mock(TimeDimensionCreator.class);
 
         Mockito.when(
                 timeDimensionCode.itsTimeDimensionReturnInstanceOrDefault(
-                        "unknown",
+                        "min",
                         TimeMinutesDimension.class,
                         new UnknownTimeDimension())
         ).thenThrow(InstantiationException.class);
+        //when:
+        TimeDimension timeDimension = timeDimensionFactory.createFromCode(timeDimensionCode);
+        //then:
+        Assert.assertNull(timeDimension);
+    }
+
+    @Test
+    public void test_create_from_code_min_fails_no_such_method_exception()
+            throws InvocationTargetException, NoSuchMethodException,
+            InstantiationException, IllegalAccessException {
+        //given:
+        TimeDimensionCreator timeDimensionCode = Mockito.mock(TimeDimensionCreator.class);
+
+        Mockito.when(
+                timeDimensionCode.itsTimeDimensionReturnInstanceOrDefault(
+                        "min",
+                        TimeMinutesDimension.class,
+                        new UnknownTimeDimension())
+        ).thenThrow(NoSuchMethodException.class);
         //when:
         TimeDimension timeDimension = timeDimensionFactory.createFromCode(timeDimensionCode);
         //then:

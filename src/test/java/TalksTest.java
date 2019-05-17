@@ -34,15 +34,15 @@ public class TalksTest {
     private Talks getTalksWihoutTheExtracted() {
         Talks talks = new Talks();
         talks.add(new Talk("title 2", new TimeMinutesDimension("35min")));
-        talks.add(new Talk("title 4", new TimeMinutesDimension("5min")));
         talks.add(new Talk("title 5", new TimeMinutesDimension("10min")));
+        talks.add(new Talk("title 4", new TimeMinutesDimension("5min")));
         return talks;
     }
 
     private Talks getExtractedTalks() {
         Talks talks = new Talks();
-        talks.add(new Talk("title 1", new TimeMinutesDimension("15min")));
         talks.add(new Talk("title 3", new TimeMinutesDimension("45min")));
+        talks.add(new Talk("title 1", new TimeMinutesDimension("15min")));
         return talks;
     }
 
