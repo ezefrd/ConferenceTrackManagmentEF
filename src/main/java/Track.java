@@ -13,10 +13,8 @@ public class Track {
     public String render() {
         StringBuilder trackBuilder = new StringBuilder();
         trackBuilder.append(trackTitle + ":\n");
-        trackBuilder.append(morningSession.render());
-        trackBuilder.append("12:00 PM Lunch\n");
-        trackBuilder.append(afternoonSession.render());
-        trackBuilder.append("05:00 PM Networking Event\n");
+        trackBuilder.append(morningSession.render(new LunchEvent()));
+        trackBuilder.append(afternoonSession.render(new NetworkingEvent()));
         return trackBuilder.toString();
 
     }

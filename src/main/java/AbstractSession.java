@@ -16,4 +16,23 @@ public class AbstractSession implements Session{
     @Override public String render() {
         return talks.render(openHour);
     }
+
+    /**
+     *
+     * Afternoon session should override this and manage in other way the extraEvent initial hour.
+     * @param extraSessionEvents
+     * @return
+     */
+    @Override public String render(ExtraSessionEvent... extraSessionEvents) {
+        StringBuilder sessionRender = new StringBuilder();
+        sessionRender.append(this.render());
+        TimeReference startingTime = new TimeReference(endingHour);
+        for(ExtraSessionEvent extraSessionEvent : extraSessionEvents){
+            sessionRender.append(extraSessionEvent.render(startingTime));
+            sessionRender.append("\n");
+        }
+
+        return sessionRender.toString();
+    }
+
 }

@@ -24,6 +24,13 @@ public class Talk implements SchedulableTalk{
         return Objects.hash(title, timeDimension);
     }
 
+    /**
+     * This method should only be used by the Comparator.. The use of this method
+     * in any other class will be violating the tell don't ask principle
+     * creating an unnecessary coupling between objects.
+     * @param talk2
+     * @return
+     */
     public boolean isShorterThan(Talk talk2) {
         return this.timeDimension.fitsTo(talk2.timeDimension);
     }
@@ -61,6 +68,15 @@ public class Talk implements SchedulableTalk{
         }
     }
 
+    /**
+     * @Smell the use of a boolean public method allows any actor that it's interpelating
+     * my class to use an if.. so, if I change this method,
+     * that is going to has impact in each actor that is requesting this method.
+     *
+     * It's not so good with the tell don't ask principle.
+     * @param accTime
+     * @return
+     */
     @Override
     public boolean fitsInto(TimeMinutesDimension accTime) {
         return this.timeDimension.fitsTo(accTime);

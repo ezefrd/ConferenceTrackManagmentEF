@@ -3,6 +3,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.stream.Collectors;
 
+/**
+ * The idea of this class is to be an implementation that allow the user to
+ * extract talks for conference using a next fit decreasing order algorithm
+ *
+ * As I'm using the AbstractClass with SchedulableTalks, I can create others
+ * implementations that uses others algorithms to make the extract for a time slot
+ */
 public class Talks extends AbstractTalks{
 
     public Talks(){
@@ -22,6 +29,7 @@ public class Talks extends AbstractTalks{
         Talks talksForContainer = new Talks();
         Talks notUsedTalks;
 
+        //This implementation of talks use decresing time sorting.
         Collections.sort(this.talks, new TalksDecresingTimeSorter());
 
         while(accTime.itsNotZero() && anyTalkFitsInto(accTime)){

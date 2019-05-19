@@ -86,7 +86,7 @@ public class ConferenceTest {
                 + "3:00 PM Overdoing it in Python  45min\n" + "\n"
                 + "3:45 PM Ruby Errors from Mismatched Gem Versions  45min\n"
                 + "\n" + "4:30 PM Lua for the Masses  30min\n"
-                + "05:00 PM Networking Event\n" + "\n" + "Track2:\n"
+                + "5:00 PM Networking Event\n" + "\n" + "Track2:\n"
                 + "9:00 AM Common Ruby Errors  45min\n" + "\n"
                 + "9:45 AM Accounting-Driven Development  45min\n" + "\n"
                 + "10:30 AM Pair Programming vs Noise  45min\n" + "\n"
@@ -99,7 +99,7 @@ public class ConferenceTest {
                 + "\n" + "3:00 PM A World Without HackerNews  30min\n" + "\n"
                 + "3:30 PM User Interface CSS in Rails Apps  30min\n" + "\n"
                 + "4:00 PM Rails for Python Developers  5min\n"
-                + "05:00 PM Networking Event\n";
+                + "5:00 PM Networking Event\n";
     }
 
     private Conference makeMockedConference() {
@@ -173,13 +173,13 @@ public class ConferenceTest {
                 + "\n" + "11:10 AM Talk 1 10min\n" + "12:00 PM Lunch\n"
                 + "1:00 PM Talk 4 60min\n" + "\n" + "2:00 PM Talk 3 40min\n"
                 + "\n" + "2:40 PM Talk 2 30min\n" + "\n"
-                + "3:10 PM Talk 1 5min\n" + "05:00 PM Networking Event\n" + "\n"
+                + "3:10 PM Talk 1 5min\n" + "5:00 PM Networking Event\n" + "\n"
                 + "Track2:\n" + "9:00 AM Talk 4 60min\n" + "\n"
                 + "10:00 AM Talk 3 40min\n" + "\n" + "10:40 AM Talk 2 30min\n"
                 + "\n" + "11:10 AM Talk 1 10min\n" + "12:00 PM Lunch\n"
                 + "1:00 PM Talk 3 40min\n" + "\n" + "1:40 PM Talk 2 30min\n"
                 + "\n" + "2:10 PM Talk 1 10min\n" + "\n"
-                + "2:20 PM Talk 4 5min\n" + "05:00 PM Networking Event\n";
+                + "2:20 PM Talk 4 5min\n" + "5:00 PM Networking Event\n";
     }
 
     private Talks readTalksFromTxt(){
